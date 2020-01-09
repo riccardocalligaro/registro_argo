@@ -9,6 +9,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # api client
+  dio: ^3.0.8
+  # Functional programming
+  dartz: ^0.8.9
+  # object comparison
+  equatable: ^1.0.2
+  # check connection
+  data_connection_checker: ^0.3.4
+  # dependency injection
+  get_it: ^3.1.0
 
   cupertino_icons: ^0.1.2
 
