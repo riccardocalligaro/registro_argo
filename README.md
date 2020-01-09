@@ -8,11 +8,21 @@ Unofficial app for the Argon school record.
 
 - [Overview of the project](#overview-of-the-project)
 - [API Documentation](#classeviva-api-documentation)
+
   - [Login](#login)
   - [Today](#today)
   - [Timetable](#timetable)
   - [Absences](#absences)
   - [Notes](#notes)
+  - [Grades](#grades)
+  - [Scrutinio grades](#scrutinio-grades)
+  - [Homeworks](#homeworks)
+  - [Lessons](#lessons)
+  - [Teachers](#teachers)
+  - [Memos](#memos)
+  - [Noticeboard](#noticeboard)
+
+
 
 ## Overview of the project
 
@@ -488,7 +498,208 @@ An array of `dati` where every element is grade
 
 - `desMateria` Subject name
 - `decValore` Decimal value of the grade
-- `votoAltro` or `votoPratico` or `votoScritto` or `votoOrale` 
-    - `codVoto` vote code
+- `votoAltro` or `votoPratico` or `votoScritto` or `votoOrale`
+  - `codVoto` vote code
 - `desCommento` Description of the grade
 - `giudizioSintetico` Brief review of your school progress
+
+---
+
+## Homeworks
+
+`GET compiti`
+
+## Description
+
+This endpoint gives the student homeworks
+
+## Required Header
+
+- x-auth-token: _token_
+
+**Response**
+
+An array of `dati` where every element is a homework assignment
+
+```json
+{
+  "dati": [
+    {
+      "datGiorno": "2017-04-22",
+      "desMateria": "S.I. BIOLOGIA",
+      "numAnno": "2016",
+      "prgMateria": "prgMateria",
+      "prgClasse": "prgClasse",
+      "desCompiti": "Fare esercizio numero 31 a pagina 2.",
+      "prgScuola": "2",
+      "docente": "(Prof. NOME DELL'INSEGNANTE)",
+      "codMin": "schoolCode"
+    }
+  ]
+}
+```
+
+### Intresting data
+
+- `datGiorno` Date of the assignment
+- `desMateria` Subject name
+- `desCompiti` Description of the assigment
+- `docente` Author of the assigment
+
+---
+
+## Lessons
+
+`GET lezioni`
+
+## Description
+
+This endpoint gives the student lessons
+
+## Required Header
+
+- x-auth-token: _token_
+
+**Response**
+
+An array of `dati` where every element is a lesson
+
+```json
+{
+  "dati": [
+    {
+      "datGiorno": "2017-04-22",
+      "desMateria": "S.I. BIOLOGIA",
+      "numAnno": "2016",
+      "prgMateria": "prgMateria",
+      "prgClasse": "prgClasse",
+      "prgScuola": "prgScuola",
+      "desArgomento": "Abbiamo visto un video.",
+      "docente": "(Prof. NOME DELL'INSEGNANTE)",
+      "codMin": "schoolCode\n)"
+    }
+  ]
+}
+```
+
+### Intresting data
+
+- `datGiorno` Date of the assignment
+- `desMateria` Subject name
+- `desArgomento` Lesson topic
+- `docente` Author of the lesson
+
+---
+
+## Teachers
+
+`GET docenti`
+
+## Description
+
+This endpoint gives the student teachers
+
+## Required Header
+
+- x-auth-token: _token_
+
+**Response**
+
+An array of `dati` where every element is a teacher
+
+```json
+{
+  "dati": [
+    {
+      "prgClasse": "1967",
+      "prgAnagrafe": "prgAnagrafe",
+      "prgScuola": "prgScuola",
+      "materie": "(S.I. BIOLOGIA)",
+      "docente": {
+        "email": "",
+        "nome": "NOME",
+        "cognome": "DELL'INSEGNANTE"
+      },
+      "codMin": "schoolCode"
+    }
+  ]
+}
+```
+
+### Intresting data
+
+- `materie` Subject(s?)
+- `docente`
+  - `email` Email of the teacher
+  - `nome` Name of the teacher
+  - `cognome` Surname of the teacher
+
+---
+
+## Memos
+
+`GET promemoria`
+
+## Description
+
+This endpoint gives the student memos
+
+## Required Header
+
+- x-auth-token: _token_
+
+**Response**
+
+An array of `dati` where every element is a memo
+
+```json
+{
+  "dati": [
+    {
+      "desAnnotazioni": "IT Test",
+      "datGiorno": "2017-05-11",
+      "numAnno": "2016",
+      "prgProgressivo": "prgProgressivo",
+      "prgClasse": "prgClasse",
+      "prgAnagrafe": "prgAnagrafe",
+      "prgScuola": "prgScuola",
+      "desMittente": "NOME DELL'INSEGNANTE",
+      "codMin": "schoolCode\n)"
+    }
+  ]
+}
+```
+
+### Intresting data
+
+- `desAnnotazioni` Description of the memo
+- `datGiorno` Day when the event occours
+- `desMittente` Author of the memo
+
+---
+
+## Noticeboard
+
+`GET bacheca`
+
+## Description
+
+This endpoint gives the student memos
+
+## Required Header
+
+- x-auth-token: _token_
+
+**Response**
+
+An array of `dati` where every element is a memo
+
+```json
+?
+```
+
+### Intresting data
+
+- `desAnnotazioni` Description of the memo
+- `datGiorno` Day when the event occours
+- `desMittente` Author of the memo
