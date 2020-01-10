@@ -21,22 +21,31 @@ class ArgoClientImpl implements ArgoClient {
     String username,
     String password,
   }) async {
-    Map<String, dynamic> loginHeaders = {
-      ArgoConstants.API_HEADER_SCHOOL_CODE: schoolCode,
-      ArgoConstants.API_HEADER_USER_ID: username,
-      ArgoConstants.API_HEADER_PASSWORD: password,
-    };
-    final Response _result = await dio.request(
-      '/login',
-      options: RequestOptions(
-          method: 'GET', headers: loginHeaders, baseUrl: baseUrl),
-    );
-    if (_result.statusCode != 200 && _result.data != null) {
-      throw ServerFailure(statusCode: _result.statusCode);
-    }
+    try {
+      Map<String, dynamic> loginHeaders = {
+        ArgoConstants.API_HEADER_SCHOOL_CODE: schoolCode,
+        ArgoConstants.API_HEADER_USER_ID: username,
+        ArgoConstants.API_HEADER_PASSWORD: password,
+      };
 
-    final value = ApiLoginResponse.fromJson(_result.data);
-    return value;
+      final Response _result = await dio.request(
+        '/login',
+        options: RequestOptions(
+            method: 'GET', headers: loginHeaders, baseUrl: baseUrl),
+      );
+
+      if (_result.statusCode != 200 || _result.data == null) {
+        print("should throw");
+        throw ServerFailure(statusCode: _result.statusCode);
+      }
+
+      final value = ApiLoginResponse.fromJson(_result.data);
+      return value;
+    } on DioError catch (e) {
+      throw ServerFailure(
+        statusCode: e.response.statusCode,
+      );
+    }
   }
 
   @override
@@ -56,15 +65,17 @@ class ArgoClientImpl implements ArgoClient {
       ArgoConstants.API_HEADER_PRG_SCUOLA: '0',
     };
     final Response _result = await dio.request(
-      '/login',
+      '/schede',
       options: RequestOptions(
           method: 'GET', headers: loginHeaders, baseUrl: baseUrl),
     );
-    if (_result.statusCode != 200 && _result.data != null) {
+
+    print(_result.data.toString());
+    if (_result.statusCode != 200 || _result.data == null) {
       throw ServerFailure(statusCode: _result.statusCode);
     }
 
-    final value = ApiUserInfoResponse.fromJson(_result.data);
+    final value = ApiUserInfoResponse.fromJson(_result.data[0]);
     return value;
   }
 }

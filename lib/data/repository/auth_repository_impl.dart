@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:registro_argo/core/error/failures.dart';
@@ -33,6 +34,8 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
       );
 
+      FLog.info(text: 'Got api login response');
+
       final userInfoResponse = await argoClient.getUserInfo(
         schoolCode: schoolCode,
         username: username,
@@ -40,6 +43,9 @@ class AuthRepositoryImpl implements AuthRepository {
         token: apiLoginResponse.token,
       );
 
+      FLog.info(text: 'Got user info response');
+
+      print(userInfoResponse.toJson().toString());
       // We convert the data we got to a database entity
       final profile = Mappers.convertApiLoginResponseAndUserInfoToProfile(
         apiLoginResponse: apiLoginResponse,
@@ -47,18 +53,29 @@ class AuthRepositoryImpl implements AuthRepository {
         username: username,
       );
 
+      FLog.info(text: 'Converted to profile mapper ');
+
       // Insert the profile in to the datbase
       profileDao.insertProfile(profile);
 
+      FLog.info(text: 'Inserted profile in database');
+
       // We need now to save the user password
       final storage = new FlutterSecureStorage();
+
       // Flutter secure storage encrypts the password
       await storage.write(key: username, value: password);
+      FLog.info(text: 'Saved password');
 
       return Right(profile);
     } on ServerFailure catch (serverFailure) {
+      FLog.info(
+        text:
+            'Got a server failure ${serverFailure.statusCode} when logging in user',
+      );
       return Left(serverFailure);
     } on DatabaseFailure {
+      FLog.info(text: 'Got a database failure when trying to insert profile');
       return Left(DatabaseFailure());
     }
   }
