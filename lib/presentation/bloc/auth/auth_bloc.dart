@@ -1,10 +1,10 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:registro_argo/core/error/failures.dart';
 import 'package:registro_argo/domain/repository/auth_repository.dart';
-import 'package:registro_argo/utils/constants/error_constants.dart';
 import 'package:registro_argo/utils/global_utils.dart';
+
 import './bloc.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {

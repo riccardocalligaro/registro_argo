@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:registro_argo/core/error/failures.dart';
 import 'package:registro_argo/data/db/moor_database.dart';
-import 'package:registro_argo/domain/entity/api_responses/login_response.dart';
 
 abstract class AuthRepository {
   /// Logs in one user
