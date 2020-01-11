@@ -27,7 +27,7 @@ dependencies:
   f_logs: ^1.2.2
   # save user password
   flutter_secure_storage: ^3.3.1+1
-  shared_preferences: ^0.5.6
+  shared_preferences: ^0.5.4+8
   # in18n
   intl: ^0.16.0
   flutter_svg: ^0.15.0
