@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:registro_argo/component/routes.dart';
 import 'package:registro_argo/component/simple_bloc_delegate.dart';
-import 'package:registro_argo/presentation/feature/login/login_page.dart';
+import 'package:registro_argo/presentation/feature/splash_screen/splash_screen.dart';
 import 'package:registro_argo/presentation/global/application.dart';
 
 import 'injector_container.dart' as di;
@@ -32,9 +33,9 @@ class MyApp extends StatelessWidget {
           supportedLocales: initData.supportedLocales,
           localizationsDelegates: initData.localizationsDelegates,
           localeResolutionCallback: initData.localeResolutionCallback,
-          // routes: Routes.routes,
+          routes: Routes.routes,
           onUnknownRoute: (settings) {
-            return MaterialPageRoute(builder: (ctx) => LoginPage());
+            return MaterialPageRoute(builder: (ctx) => SplashScreenPage());
           },
         );
       },

@@ -1,5 +1,6 @@
-import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
+import 'package:registro_argo/data/db/dao/profile_dao.dart';
+import 'package:registro_argo/injector_container.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -16,7 +17,8 @@ class HomePage extends StatelessWidget {
             RaisedButton(
               child: Text('Login request'),
               onPressed: () {
-                FLog.info(text: 'Test');
+                final ProfileDao profileDao = ProfileDao(sl());
+                profileDao.deleteAllProfiles();
                 // final LoginRepository loginRepository = LoginRepositoryImpl(
                 //   networkInfo: sl.get<NetworkInfo>(),
                 //   argoClient: sl.get<ArgoClient>(),

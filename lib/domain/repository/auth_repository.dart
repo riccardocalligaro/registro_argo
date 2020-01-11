@@ -13,4 +13,9 @@ abstract class AuthRepository {
     @required String username,
     @required String password,
   });
+
+  /// Checks if there is a user in the profile where `active = true`
+  ///   - [true] if exists
+  ///   - [false] if not
+  Future<bool> isUserLoggedIn();
 }

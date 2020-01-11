@@ -12,26 +12,26 @@ class Mappers {
   }) {
     return Profile(
       id: null,
-      schoolCode: userInfoResponse.codMin,
-      username: username,
+      schoolCode: userInfoResponse.codMin ?? '',
+      username: username ?? '',
       active: true,
-      name: userInfoResponse.alunno.desNome,
-      surname: userInfoResponse.alunno.desCognome,
-      token: apiLoginResponse.token,
-      prgScuola: userInfoResponse.prgScuola,
-      prgAlunno: userInfoResponse.prgAlunno,
-      prgScheda: userInfoResponse.prgScheda,
-      prgClasse: userInfoResponse.prgClasse,
-      year: userInfoResponse.numAnno,
-      sex: userInfoResponse.alunno.flgSesso,
-      school: userInfoResponse.desScuola,
-      sede: userInfoResponse.desSede,
-      classNumber: userInfoResponse.desDenominazione,
-      classSezione: userInfoResponse.desCorso,
+      name: userInfoResponse.alunno.desNome ?? '',
+      surname: userInfoResponse.alunno.desCognome ?? '',
+      token: apiLoginResponse.token ?? '',
+      prgScuola: userInfoResponse.prgScuola ?? 0,
+      prgAlunno: userInfoResponse.prgAlunno ?? 0,
+      prgScheda: userInfoResponse.prgScheda ?? 0,
+      prgClasse: userInfoResponse.prgClasse ?? 0,
+      year: userInfoResponse.numAnno ?? DateTime.now().year,
+      sex: userInfoResponse.alunno.flgSesso ?? 'X',
+      school: userInfoResponse.desScuola ?? '',
+      sede: userInfoResponse.desSede ?? '',
+      classNumber: userInfoResponse.desDenominazione ?? '-1',
+      classSezione: userInfoResponse.desCorso ?? 'X',
       schoolYearStart: DateConverters.getDateFromApiString(
-          userInfoResponse.annoScolastico.datInizio),
+          userInfoResponse.annoScolastico.datInizio) ?? DateTime.now(),
       schoolYearEnd: DateConverters.getDateFromApiString(
-          userInfoResponse.annoScolastico.datFine),
+          userInfoResponse.annoScolastico.datFine) ?? DateTime.now(),
     );
   }
 }

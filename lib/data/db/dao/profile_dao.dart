@@ -20,8 +20,8 @@ class ProfileDao extends DatabaseAccessor<AppDatabase> with _$ProfileDaoMixin {
   /// Gets the profile that is currently [active]
   /// Active means that is logged in and is used by the user
   /// Returns `null` if now profiles are found
-  Future<Profile> getLoggedInProfile() {
-    return (select(profiles)..where((profile) => profile.active)).getSingle();
+  Future<List<Profile>> getLoggedInProfiles() {
+    return (select(profiles)..where((profile) => profile.active)).get();
   }
 
   /// Erases all the data in the [profiles] table

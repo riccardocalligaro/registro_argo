@@ -31,8 +31,8 @@ class SignOutSuccess extends AuthState {
   SignOutSuccess();
 }
 
-class AutoSignLoadInProgress extends AuthState {}
+class AutoSignInLoadInProgress extends AuthState {}
 
 class AutoSignInLoadErorr extends AuthState {}
 
-class AutoSignInLoadSuccess extends AuthState {}
+class AutoSignInLoadResult extends AuthState {}

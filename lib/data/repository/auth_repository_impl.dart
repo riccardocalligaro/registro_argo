@@ -69,14 +69,20 @@ class AuthRepositoryImpl implements AuthRepository {
 
       return Right(profile);
     } on ServerFailure catch (serverFailure) {
-      FLog.info(
+      FLog.error(
         text:
             'Got a server failure ${serverFailure.statusCode} when logging in user',
       );
       return Left(serverFailure);
     } on DatabaseFailure {
-      FLog.info(text: 'Got a database failure when trying to insert profile');
+      FLog.error(text: 'Got a database failure when trying to insert profile');
       return Left(DatabaseFailure());
     }
+  }
+
+  @override
+  Future<bool> isUserLoggedIn() async {
+    final profile = await profileDao.getLoggedInProfiles();
+    return profile.length >= 1;
   }
 }

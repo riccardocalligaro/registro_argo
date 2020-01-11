@@ -22,8 +22,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> mapEventToState(
     AuthEvent event,
   ) async* {
+    FLog.info(text: 'Got event ${event.toString()} in auth bloc');
+
     if (event is SignIn) {
-      FLog.info(text: 'Got event to sign in');
       yield* _mapSignInEventToState(
         username: event.username,
         password: event.password,
@@ -49,7 +50,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       schoolCode: schoolCode,
     );
 
-    FLog.info(text: 'Got sign in result, proceeding to emit state');
+    FLog.info(
+        text:
+            'Got result ${_logInResult.toString()}, proceeding to emit state');
 
     yield _logInResult.fold(
       (failure) => SignInLoadError(
@@ -61,5 +64,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _mapSignOutEventToState() async* {}
 
-  Stream<AuthState> _mapAutoSignInEventToState() async* {}
+  Stream<AuthState> _mapAutoSignInEventToState() async* {
+    yield AutoSignInLoadInProgress();
+    final exists = await authRepository.isUserLoggedIn();
+
+    FLog.info(text: 'Auto sign in profile exists: $exists');
+    if (exists) {
+      yield AutoSignInLoadResult();
+    } else {
+      yield AutoSignInLoadErorr();
+    }
+  }
 }

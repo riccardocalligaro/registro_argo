@@ -88,7 +88,7 @@ class Alunno {
   String desVia;
   String desCap;
   String desNome;
-  Null desCellulare;
+  String desCellulare;
   String desComuneNascita;
   String flgSesso;
   String datNascita;
@@ -96,7 +96,7 @@ class Alunno {
   String desComuneRecapito;
   String desCapResidenza;
   String desComuneResidenza;
-  Null desTelefono;
+  String desTelefono;
   String desCittadinanza;
 
   Alunno(

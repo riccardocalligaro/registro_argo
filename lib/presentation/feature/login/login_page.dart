@@ -1,9 +1,8 @@
 import 'package:f_logs/model/flog/flog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:registro_argo/component/navigator.dart';
 import 'package:registro_argo/presentation/bloc/auth/bloc.dart';
-import 'package:registro_argo/presentation/feature/home/home_page.dart';
 import 'package:registro_argo/presentation/feature/widgets/buttons/gradient_green_button.dart';
 
 class LoginPage extends StatefulWidget {
@@ -31,28 +30,24 @@ class _LoginPageState extends State<LoginPage> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is SignInLoadSuccess) {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => HomePage()),
-            );
+            AppNavigator.instance.navToHome(context);
           }
           if (state is SignInLoadError) {
-            // setState(() {
-            //   _invalid = true;
-            //   _erorrMessage = 'Credenziali invalide';
-            // });
+            setState(() {
+              _invalid = true;
+              _erorrMessage = 'Credenziali invalide';
+            });
           }
         },
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            if (state is Init || state is SignInLoadError) {
-              return _buildInitial();
-            } else if (state is SignInLoadInProgress) {
+            if (state is SignInLoadInProgress) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
 
-            return Text(state.toString());
+            return _buildInitial();
           },
         ),
       ),
@@ -78,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
+        // todo: fix green waves
         // Align(
         //   alignment: Alignment.bottomCenter,
         //   child: SvgPicture.asset(
@@ -126,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
           height: 30,
         ),
         TextField(
-          controller: _passwordController,
+          controller: _usernameController,
           decoration: InputDecoration(
               hintText: 'Username', errorText: _invalid ? _erorrMessage : null),
         ),
@@ -134,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
           height: 30,
         ),
         TextField(
-          controller: _usernameController,
+          controller: _passwordController,
           decoration: InputDecoration(
             hintText: 'Password',
             errorText: _invalid ? _erorrMessage : null,
